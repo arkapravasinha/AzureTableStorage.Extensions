@@ -20,11 +20,12 @@ Easily Pluggable Extension for Azure Table Storage
             _azureTableClient = azureTableClient;
         }
         
-3. Now create a Cloud Table and start using it in our project.
+3. Now create a Cloud Table and start using it in your classes.
     
         var cloudtable = _azureTableClient.CreateIfNotExists("TestEntities"); //TestEntities is the table name
         
 4. There are few extension method to help in InsertOrMerge, Retrieve and Delete of Entities in cloud table.
+            
             //for insert or merge, Async version is also available
             cloudtable.InsertOrMergeEntity<TestEntity>(testEntity);// Create a Entity type by implementing TableEntity of Microsoft.Azure.Cosmos.Table
             
