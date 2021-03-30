@@ -3,9 +3,16 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Authors>Arkaprava Sinha</Authors>
     <Product />
+    <NeutralLanguage>en-IN</NeutralLanguage>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Description>Easily inject Azure Table Storage dependencies in client with this library</Description>
+    <Copyright />
+    <PackageProjectUrl>https://github.com/arkapravasinha/AzureTableStorage.Extensions</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/arkapravasinha/AzureTableStorage.Extensions</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
   </PropertyGroup>
 
   <ItemGroup>
