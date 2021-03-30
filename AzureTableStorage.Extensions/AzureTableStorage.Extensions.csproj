@@ -13,6 +13,8 @@
     <PackageProjectUrl>https://github.com/arkapravasinha/AzureTableStorage.Extensions</PackageProjectUrl>
     <RepositoryUrl>https://github.com/arkapravasinha/AzureTableStorage.Extensions</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
+    <Version>1.0.1</Version>
+    <AssemblyVersion>1.0.1.0</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>
