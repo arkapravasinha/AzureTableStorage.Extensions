@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace AzureTableStorage.Extensions
 {
+    /// <summary>
+    /// Azure Table Client, Used to Create Cloud Tables
+    /// </summary>
     public interface IAzureTableClient
     {
         /// <summary>

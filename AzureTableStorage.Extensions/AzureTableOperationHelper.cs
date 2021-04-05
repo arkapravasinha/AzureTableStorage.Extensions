@@ -1,8 +1,5 @@
 ﻿using Microsoft.Azure.Cosmos.Table;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace AzureTableStorage.Extensions
@@ -39,13 +36,13 @@ namespace AzureTableStorage.Extensions
 
                 return insertedEnity;
             }
-            catch (StorageException e)
+            catch (StorageException)
             {
-                throw e;
+                throw;
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
         }
 
@@ -76,13 +73,13 @@ namespace AzureTableStorage.Extensions
 
                 return insertedEnity;
             }
-            catch (StorageException e)
+            catch (StorageException)
             {
-                throw e;
+                throw;
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
         }
 
@@ -109,13 +106,13 @@ namespace AzureTableStorage.Extensions
                 var queryResults = result.Result as T;
                 return queryResults;
             }
-            catch (StorageException e)
+            catch (StorageException)
             {
-                throw e;
+                throw;
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
         }
 
@@ -142,13 +139,13 @@ namespace AzureTableStorage.Extensions
                 var queryResults = result.Result as T;
                 return queryResults;
             }
-            catch (StorageException e)
+            catch (StorageException)
             {
-                throw e;
+                throw;
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
         }
 
@@ -172,13 +169,13 @@ namespace AzureTableStorage.Extensions
                 TableOperation deleteOperation = TableOperation.Delete(deleteEntity);
                 TableResult result = await table.ExecuteAsync(deleteOperation);
             }
-            catch (StorageException e)
+            catch (StorageException)
             {
-                throw e;
+                throw;
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
         }
 
@@ -200,13 +197,13 @@ namespace AzureTableStorage.Extensions
                 TableOperation deleteOperation = TableOperation.Delete(deleteEntity);
                 TableResult result = table.Execute(deleteOperation);
             }
-            catch (StorageException e)
+            catch (StorageException)
             {
-                throw e;
+                throw;
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
         }
     }
