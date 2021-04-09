@@ -27,7 +27,7 @@ namespace AzureTableStorage.Extensions
         /// <param name="throughPut">Indicates Throughput, optional, int</param>
         /// <param name="defaultTimeToLive">Default Time To live, optional, int</param>
         /// <returns>CloudTable</returns>
-        CloudTable CreateIfNotExists(string tableName, TableRequestOptions tableRequestOptions = null, OperationContext operationContext = null, string serializedIndexingPolicy = null, int? throughPut = null, int? defaultTimeToLive = null);
+        CloudTable CreateIfNotExists(string tableName, TableRequestOptions tableRequestOptions, OperationContext operationContext = null, string serializedIndexingPolicy = null, int? throughPut = null, int? defaultTimeToLive = null);
 
         /// <summary>
         /// Create a Cloud Table if does not exist, otherwise returns the one already presented
@@ -68,6 +68,6 @@ namespace AzureTableStorage.Extensions
         /// <param name="throughput">Indicates Throughput, optional, int</param>
         /// <param name="defaultTimeToLive">Default Time To live, optional, int</param>
         /// <returns>CloudTable</returns>
-        Task<CloudTable> CreateIfNotExistsAsync(string tableName, CancellationToken cancellationToken, IndexingMode indexingMode, int? throughput = null, int? defaultTimeToLive = null);
+        Task<CloudTable> CreateIfNotExistsAsync(string tableName, IndexingMode indexingMode, CancellationToken cancellationToken, int? throughput = null, int? defaultTimeToLive = null);
     }
 }

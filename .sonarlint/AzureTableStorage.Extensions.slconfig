@@ -1,0 +1,12 @@
+{
+  "ServerUri": "https://arka-sonar-arkapravasinha.cloud.okteto.net/",
+  "Organization": null,
+  "ProjectKey": "AzureTableStorage.Extensions",
+  "ProjectName": "AzureTableStorage.Extensions",
+  "Profiles": {
+    "CSharp": {
+      "ProfileKey": "AXi3IuCocjR1ATUNRrcL",
+      "ProfileTimestamp": "2021-04-09T14:56:59Z"
+    }
+  }
+}

@@ -19,31 +19,13 @@ namespace AzureTableStorage.Extensions
         /// <exception cref="ArgumentNullException">If Entity is null</exception>
         /// <exception cref="StorageException"></exception>
         /// <exception cref="Exception"></exception>
-        public static async Task<T> InsertOrMergeEntityAsync<T>(this CloudTable table, T entity) where T: TableEntity,ITableEntity
+        public static Task<T> InsertOrMergeEntityAsync<T>(this CloudTable table, T entity) where T: TableEntity,ITableEntity
         {
             if (entity == null)
-                throw new ArgumentNullException("entity", "entity can not be null");
+                throw new ArgumentNullException(nameof(entity), "entity can not be null");
             if (table == null)
-                throw new ArgumentNullException("table", "table can not be null");
-            try
-            {
-                // Create the InsertOrReplace table operation
-                TableOperation insertOrMergeOperation = TableOperation.InsertOrMerge(entity);
-
-                // Execute the operation.
-                TableResult result = await table.ExecuteAsync(insertOrMergeOperation);
-                var insertedEnity = (T)result.Result;
-
-                return insertedEnity;
-            }
-            catch (StorageException)
-            {
-                throw;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+                throw new ArgumentNullException(nameof(table), "table can not be null");
+            return  InsertOrMergeOperation(table, entity);
         }
 
         /// <summary>
@@ -59,28 +41,18 @@ namespace AzureTableStorage.Extensions
         public static T InsertOrMergeEntity<T>(this CloudTable table, T entity) where T : TableEntity, ITableEntity
         {
             if (entity == null)
-                throw new ArgumentNullException("entity", "entity can not be null");
+                throw new ArgumentNullException(nameof(entity), "entity can not be null");
             if (table == null)
-                throw new ArgumentNullException("table", "table can not be null");
-            try
-            {
-                // Create the InsertOrReplace table operation
-                TableOperation insertOrMergeOperation = TableOperation.InsertOrMerge(entity);
+                throw new ArgumentNullException(nameof(table), "table can not be null");
 
-                // Execute the operation.
-                TableResult result = table.Execute(insertOrMergeOperation);
-                var insertedEnity = (T)result.Result;
+            // Create the InsertOrReplace table operation
+            TableOperation insertOrMergeOperation = TableOperation.InsertOrMerge(entity);
 
-                return insertedEnity;
-            }
-            catch (StorageException)
-            {
-                throw;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            // Execute the operation.
+            TableResult result = table.Execute(insertOrMergeOperation);
+            var insertedEnity = (T)result.Result;
+
+            return insertedEnity;
         }
 
         /// <summary>
@@ -91,30 +63,20 @@ namespace AzureTableStorage.Extensions
         /// <param name="partitionKey">Partition Key, required, string</param>
         /// <param name="rowKey">Row Key, required, string</param>
         /// <returns>Type of TableEntity or ITableEntity</returns>
-        public static async Task<T> RetrieveEntityUsingPointQueryAsync<T>(this CloudTable table, string partitionKey, string rowKey) where T : TableEntity, ITableEntity
+        public static Task<T> RetrieveEntityUsingPointQueryAsync<T>(this CloudTable table, string partitionKey, string rowKey) where T : TableEntity, ITableEntity
         {
             if (table == null)
-                throw new ArgumentNullException("table", "table can not be null");
+                throw new ArgumentNullException(nameof(table), "table can not be null");
+
             if (string.IsNullOrEmpty(partitionKey))
-                throw new ArgumentNullException("partitionKey", "partitionKey can not be null");
-            if (string.IsNullOrEmpty(partitionKey))
-                throw new ArgumentNullException("partitionKey", "partitionKey can not be null");
-            try
-            {
-                TableOperation retrieveOperation = TableOperation.Retrieve<T>(partitionKey, rowKey);
-                TableResult result = await table.ExecuteAsync(retrieveOperation);
-                var queryResults = result.Result as T;
-                return queryResults;
-            }
-            catch (StorageException)
-            {
-                throw;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+                throw new ArgumentNullException(nameof(partitionKey), "partitionKey can not be null");
+
+            if (string.IsNullOrEmpty(rowKey))
+                throw new ArgumentNullException(nameof(rowKey), "partitionKey can not be null");
+
+            return SelectData<T>(table, partitionKey, rowKey);
         }
+
 
         /// <summary>
         /// Retrieve entity using partition key and row key
@@ -127,26 +89,16 @@ namespace AzureTableStorage.Extensions
         public static T RetrieveEntityUsingPointQuery<T>(this CloudTable table, string partitionKey, string rowKey) where T : TableEntity, ITableEntity
         {
             if (table == null)
-                throw new ArgumentNullException("table", "table can not be null");
+                throw new ArgumentNullException(nameof(table), "table can not be null");
             if(string.IsNullOrEmpty(partitionKey))
-                throw new ArgumentNullException("partitionKey", "partitionKey can not be null");
-            if (string.IsNullOrEmpty(partitionKey))
-                throw new ArgumentNullException("partitionKey", "partitionKey can not be null");
-            try
-            {
-                TableOperation retrieveOperation = TableOperation.Retrieve<T>(partitionKey, rowKey);
-                TableResult result = table.Execute(retrieveOperation);
-                var queryResults = result.Result as T;
-                return queryResults;
-            }
-            catch (StorageException)
-            {
-                throw;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+                throw new ArgumentNullException(nameof(partitionKey), "partitionKey can not be null");
+            if (string.IsNullOrEmpty(rowKey))
+                throw new ArgumentNullException(nameof(rowKey), "partitionKey can not be null");
+
+            TableOperation retrieveOperation = TableOperation.Retrieve<T>(partitionKey, rowKey);
+            TableResult result = table.Execute(retrieveOperation);
+            var queryResults = result.Result as T;
+            return queryResults;
         }
 
         /// <summary>
@@ -156,27 +108,14 @@ namespace AzureTableStorage.Extensions
         /// <param name="table">CloudTable</param>
         /// <param name="deleteEntity">Type of TableEntity or ITableEntity</param>
         /// <returns>Task</returns>
-        public static async Task DeleteEntityAsync<T>(this CloudTable table, T deleteEntity) where T : TableEntity, ITableEntity
+        public static Task DeleteEntityAsync<T>(this CloudTable table, T deleteEntity) where T : TableEntity, ITableEntity
         {
             if (table == null)
-                throw new ArgumentNullException("table", "table can not be null");
+                throw new ArgumentNullException(nameof(table), "table can not be null");
 
             if (deleteEntity == null)
-                throw new ArgumentNullException("deleteEntity");
-
-            try
-            {
-                TableOperation deleteOperation = TableOperation.Delete(deleteEntity);
-                TableResult result = await table.ExecuteAsync(deleteOperation);
-            }
-            catch (StorageException)
-            {
-                throw;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+                throw new ArgumentNullException(nameof(deleteEntity));
+            return  DeleteTableAsync(table, deleteEntity);
         }
 
         /// <summary>
@@ -188,23 +127,40 @@ namespace AzureTableStorage.Extensions
         public static void DeleteEntity<T>(this CloudTable table, T deleteEntity) where T : TableEntity, ITableEntity
         {
             if (table == null)
-                throw new ArgumentNullException("table", "table can not be null");
+                throw new ArgumentNullException(nameof(table), "table can not be null");
 
             if (deleteEntity == null)
-                throw new ArgumentNullException("deleteEntity");
-            try
-            {
-                TableOperation deleteOperation = TableOperation.Delete(deleteEntity);
-                TableResult result = table.Execute(deleteOperation);
-            }
-            catch (StorageException)
-            {
-                throw;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+                throw new ArgumentNullException(nameof(deleteEntity));
+
+            TableOperation deleteOperation = TableOperation.Delete(deleteEntity);
+            table.Execute(deleteOperation);
+        }
+
+
+        private static async Task<T> SelectData<T>(CloudTable table, string partitionKey, string rowKey) where T : TableEntity, ITableEntity
+        {
+            TableOperation retrieveOperation = TableOperation.Retrieve<T>(partitionKey, rowKey);
+            TableResult result = await table.ExecuteAsync(retrieveOperation);
+            var queryResults = result.Result as T;
+            return queryResults;
+        }
+
+        private static async Task DeleteTableAsync<T>(CloudTable table, T deleteEntity) where T : TableEntity, ITableEntity
+        {
+            TableOperation deleteOperation = TableOperation.Delete(deleteEntity);
+            await table.ExecuteAsync(deleteOperation);
+        }
+
+        private async static Task<T> InsertOrMergeOperation<T>(CloudTable table, T entity) where T : TableEntity, ITableEntity
+        {
+            // Create the InsertOrReplace table operation
+            TableOperation insertOrMergeOperation = TableOperation.InsertOrMerge(entity);
+
+            // Execute the operation.
+            TableResult result = await table.ExecuteAsync(insertOrMergeOperation);
+            var insertedEnity = (T)result.Result;
+
+            return insertedEnity;
         }
     }
 }
