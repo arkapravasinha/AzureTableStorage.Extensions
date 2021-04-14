@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -13,8 +13,8 @@
     <PackageProjectUrl>https://github.com/arkapravasinha/AzureTableStorage.Extensions</PackageProjectUrl>
     <RepositoryUrl>https://github.com/arkapravasinha/AzureTableStorage.Extensions</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
-    <Version>1.0.2</Version>
-    <AssemblyVersion>1.0.2.0</AssemblyVersion>
+    <Version>2.0.0</Version>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <CodeAnalysisRuleSet>..\.sonarlint\azuretablestorage.extensionscsharp.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
