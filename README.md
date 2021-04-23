@@ -2,6 +2,8 @@
 Easily Pluggable Extension for Azure Table Storage
 [![Build status](https://dev.azure.com/arkaprava123040/Azure/_apis/build/status/AzureTableStorageBuild)](https://dev.azure.com/arkaprava123040/Azure/_build/latest?definitionId=2)
 
+[![Quality gate](http://172.105.45.245:9000/api/project_badges/quality_gate?project=AzureTableStorage.Extensions)](http://172.105.45.245:9000/dashboard?id=AzureTableStorage.Extensions)
+
 #To Use This package
 1. Configure Your Azure Table Storage Service in Startup.cs as below,
 
